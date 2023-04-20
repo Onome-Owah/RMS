@@ -1,0 +1,132 @@
+@model Recipe
+
+<!-- TBC add a breadcrumb partial -->
+<partial name="_BreadCrumbs" model=@(new [] {
+    ("/","Home"),
+    ("/recipe","Recipes"),
+    ("","Create"),
+    
+    
+}) />
+
+
+<div class="card rounded shadow p-4">
+    <h3>Create Recipe</h3>
+
+    <form method="post" asp-action="Create" enctype="multipart/form-data">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+
+        <!-- name -->
+        <div class="mt-3">
+            <label asp-for="Name" class="form-label"></label>
+            <input asp-for="Name" class="form-control"/>
+            <span  asp-validation-for="Name" class="text-danger"></span>
+        </div>
+
+        <!-- Description -->
+        <div class="mt-3">
+            <label asp-for="Description" class="form-label"></label>
+            <input asp-for="Description" class="form-control"/>
+            <span  asp-validation-for="Description" class="text-danger"></span>
+        </div>
+    
+         <!-- PrepTime, CookTime and Serviving input in single row -->   
+        <div class="row mt-3">
+            <div class="col">
+                <label asp-for="PrepTime" class="form-label"></label>
+                <input asp-for="PrepTime" class="form-control"/>
+                <span asp-validation-for="PrepTime" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="CookTime" class="form-label"></label>
+                <input asp-for="CookTime" class="form-control"/>
+                <span  asp-validation-for="CookTime" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="Servings" class="form-label"></label>
+                <input asp-for="Servings" class="form-control"/>
+                <span  asp-validation-for="Servings" class="text-danger"></span>
+            </div>
+        </div>
+        
+
+        <!-- DietType, MealCategory and CuisineStlye input in single row -->      
+        <div class="row mt-3">
+            <div class="col">
+                <label asp-for="DietType" class="form-label"></label>
+                <input asp-for="DietType" class="form-control"/>
+                <span asp-validation-for="DietType" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="MealCategory" class="form-label"></label>
+                <input asp-for="MealCategory" class="form-control"/>
+                <span  asp-validation-for="MealCategory" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="CusineStyle" class="form-label"></label>
+                <input asp-for="CusineStyle" class="form-control"/>
+                <span  asp-validation-for="CusineStyle" class="text-danger"></span>
+            </div>
+        </div>
+
+         <!--Carbs, Fat and Protein input in single row -->   
+         <div class="row mt-3">
+            <div class="col">
+                <label asp-for="Carbs" class="form-label"></label>
+                <input asp-for="Carbs" class="form-control"/>
+                <span asp-validation-for="Carbs" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="Fat" class="form-label"></label>
+                <input asp-for="Fat" class="form-control"/>
+                <span  asp-validation-for="Fat" class="text-danger"></span>
+            </div>
+
+            <div class="col">
+                <label asp-for="Protein" class="form-label"></label>
+                <input asp-for="Protein" class="form-control"/>
+                <span  asp-validation-for="Protein" class="text-danger"></span>
+            </div>
+        </div>
+
+
+         <!-- Ingredients and Direction input in single row -->   
+         <div class="row mt-3">
+            <div class="col">
+                <label asp-for="Ingredients" class="form-label"></label>
+                <input asp-for="Ingredients" class="form-control"/>
+                <span asp-validation-for="Ingredients" class="text-danger"></span>
+            </div>
+
+
+            <div class="col">
+                <label asp-for="Direction" class="form-label"></label>
+                <input asp-for="Direction" class="form-control"/>
+                <span  asp-validation-for="Direction" class="text-danger"></span>
+            </div>
+        </div>
+
+        <!-- add PhotoUrl input group - ensure input field type is url -->
+        <div class="mt-3">
+            <label asp-for="PhotoUrl" class="form-label"></label>
+            <input asp-for="PhotoUrl" type="url" class="form-control"/>
+            <span  asp-validation-for="PhotoUrl" class="text-danger"></span>
+        </div>
+
+        <div class="mt-3">           
+            <button type="submit" class="btn btn-primary" aria-label="create">Create</button>
+            <a class="btn btn-secondary" asp-action="Index" aria-label="cancel">Cancel</a>
+        </div>
+
+    </form>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
+ 

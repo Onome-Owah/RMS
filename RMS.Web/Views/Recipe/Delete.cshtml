@@ -1,0 +1,75 @@
+@model Recipe
+
+
+<!-- TBC add a breadcrumb partial -->
+<partial name="_BreadCrumbs" model=@(new [] {
+    ("/","Home"),
+    ("/recipe","Recipes"),
+    ("/details","Details"),
+    ($"/recipe/details/{Model.Id}", $"{Model.Id}"),
+    ("","Delete-Recipe")
+    
+}) />
+
+
+<div class="card rounded shadow p-4">
+  <h3 class="mb-4">Delete Recipe <span class="ms-3 text-danger fs-5">Are you sure?</span></h3> 
+  
+
+  <!-- display the student using a <dl> as per Details.cshtml -->     
+        <div>
+                <h2 class="mb-4 text-primary">Recipe Details</h2>
+                <dl class="row">  
+                    <dt class="col-4 pb-1">Name</dt>
+                    <dd class="col-8 pb-1">@Model.Name</dd>
+
+                    <dt class="col-4 pb-1">Description</dt>
+                    <dd class="col-8 pb-1">@Model.Description</dd>
+                    
+                    <dt class="col-4 pb-1">Prep-Time</dt>
+                    <dd class="col-8 pb-1">@Model.PrepTime</dd>
+                    
+                    <dt class="col-4 pb-1">Cook-Time</dt>
+                    <dd class="col-8 pb-1">@Model.CookTime</dd>
+
+                    <dt class="col-4 pb-1">Servings</dt>
+                    <dd class="col-8 pb-1">@Model.Servings</dd>
+
+                    <dt class="col-4 pb-1">Diet-Type</dt>
+                    <dd class="col-8 pb-1">@Model.DietType</dd>
+
+                    <dt class="col-4 pb-1">Meal-Category</dt>
+                    <dd class="col-8 pb-1">@Model.MealCategory</dd>
+
+                    <dt class="col-4 pb-1">Cusine</dt>
+                    <dd class="col-8 pb-1">@Model.CusineStyle</dd>
+
+                    <dt class="col-4 pb-1">Carbs</dt>
+                    <dd class="col-8 pb-1">@Model.Carbs</dd>
+
+                    <dt class="col-4 pb-1">Fat</dt>
+                    <dd class="col-8 pb-1">@Model.Fat</dd>
+
+                    <dt class="col-4 pb-1">Protein</dt>
+                    <dd class="col-8 pb-1">@Model.Protein</dd>
+
+                    <dt class="col-4 pb-1">Ingredients</dt>
+                    <dd class="col-8 pb-1">@Model.Ingredients</dd>
+
+                    <dt class="col-4 pb-1">Direction</dt>
+                    <dd class="col-8 pb-1">@Model.Direction</dd>
+                </dl>
+            </div>
+
+  <div class="mt-4">
+    <form asp-action="ConfirmDelete">
+        <!-- student Id should be a hidden input field named 'Id' in the form -->      
+        <input type="hidden" asp-for="Id" class="form-control"/>
+
+        <button type="submit" class="btn btn-danger" aria-label="delete">Delete</button>       
+        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id" >Cancel</a>
+    </form>
+  </div>
+</div>
+
+</div>

@@ -1,0 +1,62 @@
+@model IList<Recipe>
+
+<partial name="_BreadCrumbs" model=@(new [] {
+    ("/","Home"),
+    ("","Recipes")
+}) />
+
+<!-- Title bar -->
+    <div class="d-flex align-items-center justify-content-between mb-3">
+        <h3>Recipes </h3>
+        <a class="btn btn-sm btn-primary" asp-action="create" title="add recipe" aria-label="add recipe">
+           <i class="bi bi-plus"></i> Create Recipe
+        </a>
+    </div>
+
+<div class="card border rounded shadow p-4">
+
+    <div class="input-group row mb-3">
+        <div class="col-10">
+            <span class="input-group-text bi bi-search" id="basic-addon1" ></span>
+            <input type="text" class="form-control" placeholder="Search Recipe" aria-label="Search Recipe" aria-describedby="basic-addon1">
+        </div>
+
+        <div class="col">
+            <button class="btn btn-primary" type="submit">Search</button>
+            <input class="btn btn-primary" type="reset" value="Reset">
+        </div>
+</div>
+
+    <!-- List of Recipes -->
+    <table class="table table-hover mt-4">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Name</th>
+                <th>DietType</th>
+                <th>Cusine</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach(var r in Model)
+            {
+                <tr>
+                    <td>@r.Id</td>
+                    <td>@r.Name</td>
+                    <td>@r.DietType</td>
+                    <td>@r.CusineStyle</td>
+                    <td>                       
+                        <a asp-action="Details" asp-route-id=@r.Id>
+                             <i class="bi bi-view-list d-flex align-content-center" title="view recipe" arial-label="view recipe"></i>
+                        </a>
+                        @* <a asp-action="Edit" asp-route-id=@r.Id>
+                            <i class="bi bi-pencil-fill me-2" title="edit recipe" aria-label="edit recipe"></i>
+                        </a> *@
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+
+</div>

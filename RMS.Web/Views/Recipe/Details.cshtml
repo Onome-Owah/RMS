@@ -1,0 +1,114 @@
+@model Recipe
+
+<!-- TBC add a breadcrumb partial -->
+<partial name="_BreadCrumbs" model=@(new [] { ("/","Home"), ("/recipe","Recipes"), ("/details","Details"),
+    ($"/recipe/details/{Model.Id}", $"{Model.Id}"), ("","Details") }) />
+
+
+<div class="card rounded shadow p-4">
+
+    <!-- Display recipe details -->
+    <div class="row">
+
+        <!-- Details and Navigation -->
+        <div class="col-8 d-flex flex-column justify-content-between">
+            <!-- Recipe details -->
+            <div>
+                <h2 class="mb-4 text-primary">Recipe Details</h2>
+                <dl class="row">
+                    <dt class="col-4 pb-1">Name</dt>
+                    <dd class="col-8 pb-1">@Model.Name</dd>
+
+                    <dt class="col-4 pb-1">Description</dt>
+                    <dd class="col-8 pb-1">@Model.Description</dd>
+
+                    <dt class="col-4 pb-1">Prep-Time</dt>
+                    <dd class="col-8 pb-1">@Model.PrepTime</dd>
+
+                    <dt class="col-4 pb-1">Cook-Time</dt>
+                    <dd class="col-8 pb-1">@Model.CookTime</dd>
+
+                    <dt class="col-4 pb-1">Servings</dt>
+                    <dd class="col-8 pb-1">@Model.Servings</dd>
+
+                    <dt class="col-4 pb-1">Diet-Type</dt>
+                    <dd class="col-8 pb-1">@Model.DietType</dd>
+
+                    <dt class="col-4 pb-1">Meal-Category</dt>
+                    <dd class="col-8 pb-1">@Model.MealCategory</dd>
+
+                    <dt class="col-4 pb-1">Cusine</dt>
+                    <dd class="col-8 pb-1">@Model.CusineStyle</dd>
+
+                    <dt class="col-4 pb-1">Carbs</dt>
+                    <dd class="col-8 pb-1">@Model.Carbs</dd>
+
+                    <dt class="col-4 pb-1">Fat</dt>
+                    <dd class="col-8 pb-1">@Model.Fat</dd>
+
+                    <dt class="col-4 pb-1">Protein</dt>
+                    <dd class="col-8 pb-1">@Model.Protein</dd>
+
+                    <dt class="col-4 pb-1">Ingredients</dt>
+                    <dd class="col-8 pb-1">@Model.Ingredients</dd>
+
+                    <dt class="col-4 pb-1">Direction</dt>
+                    <dd class="col-8 pb-1">@Model.Direction</dd>
+                </dl>
+            </div>
+
+            <!-- Navigation links -->
+            <div>
+                <!-- add navigation link to Index action -->
+                <a asp-action="Index" class="btn btn-primary" aria-label="recipe list">
+                    <i class="bi bi-list" title="recipe list"></i>
+                    <span class="ms-1 d-none d-md-inline">Recipes</span>
+                </a>
+
+
+            </div>
+
+
+        </div>
+
+        <!-- Photo -->
+        <div class="col-4">
+
+
+            @if (Model.PhotoUrl?.Length > 0)
+            {
+                <!--                 display image -->
+                <img src="@Model.PhotoUrl" class="img-fluid" alt="Recipe photo">
+            }
+            else
+            {
+                <!--                     display span -->
+                <span class="text-info">No photo available</span>
+            }
+
+            <div class="mt-5">
+                <!-- add navigation link to Update action, passing the correct route id parameter -->
+                <a asp-action="Edit" asp-route-id="@Model.Id" class="btn btn-primary" aria-label="edit recipe">
+                    <i class="bi bi-pen-fill" title="edit recipe"></i>
+                    <span class="ms-1 d-none d-md-inline">Edit</span>
+                </a>
+
+                <!-- add navigation link to Delete action, passing the correct route id parameter -->
+                <a asp-action="Delete" asp-route-id="@Model.Id" class="btn  btn-danger" aria-label="delete recipe">
+                    <i class="bi bi-trash-fill" title="delete recipe"></i>
+                    <span class="ms-1 d-none d-md-inline">Delete</span>
+                </a>
+            </div>
+
+
+        </div>
+
+
+
+    </div>
+</div>
+
+<!-- Reviews -->
+<div class="card rounded shadow p-4 mt-4">
+    <partial name="_Reviews" />
+</div>
