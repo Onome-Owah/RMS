@@ -1,11 +1,10 @@
 @model Recipe
 
-<!-- TBC add a breadcrumb partial -->
+<!-- A breadcrumb partial -->
 <partial name="_BreadCrumbs" model=@(new [] {
     ("/","Home"),
     ("/recipe","Recipes"),
-    ("/details","Details"),
-    ($"/recipe/details/{Model.Id}", $"{Model.Id}"),
+    ($"/recipe/details/{Model.Id}", $"Recipe {Model.Id}"),
     ("","Edit")
     
 }) />
@@ -124,10 +123,7 @@
 
        <!-- submit button and cancel link which navigates to Index action -->
         <div class="mt-3">
-            @* <input type="submit" value="Save" class="btn btn-primary" aria-label="save edits" /> *@
             <button type="submit" class="btn btn-primary" aria-label="save">Save</button>
-            
-            <!-- exercise - modify navigation to display student on cancel -->
             <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id" aria-label="cancel" >Cancel</a>
         </div>
 

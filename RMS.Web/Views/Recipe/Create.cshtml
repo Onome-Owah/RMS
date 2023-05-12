@@ -5,8 +5,6 @@
     ("/","Home"),
     ("/recipe","Recipes"),
     ("","Create"),
-    
-    
 }) />
 
 
@@ -103,7 +101,6 @@
                 <span asp-validation-for="Ingredients" class="text-danger"></span>
             </div>
 
-
             <div class="col">
                 <label asp-for="Direction" class="form-label"></label>
                 <input asp-for="Direction" class="form-control"/>
@@ -129,4 +126,6 @@
 @section Scripts {
     @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
 }
+ 
+ 
  

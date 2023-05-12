@@ -24,9 +24,21 @@ public class RecipeServiceDb : IRecipeService
     // implement IRecipeService methods here
 
     // retrieve list of Recipes
-    public List<Recipe> GetRecipes()
+    public List<Recipe> GetRecipes(string order="id", string direction="asc")
     {
-        return db.Recipes.ToList();
+        var query = db.Recipes;
+        var results = (order.ToLower(), direction.ToLower()) switch
+        {   
+            ("id", "asc")     => db.Recipes.OrderBy(r => r.Id),     
+            ("Name", "asc")   => db.Recipes.OrderBy(r => r.Name),  
+            ("Name", "desc")   => db.Recipes.OrderByDescending(r => r.Name),   
+            ("DietType", "asc")  => db.Recipes.OrderBy(r => r.DietType),
+            ("DietType", "desc")  => db.Recipes.OrderByDescending(r => r.DietType),      
+            ("Cuisine", "asc")    => db.Recipes.OrderBy(r => r.CusineStyle),   
+            ("Cuisine", "desc")    => db.Recipes.OrderByDescending(r => r.CusineStyle),     
+            (_,_)        => db.Recipes.OrderBy(r => r.Id)
+        };
+        return results.ToList();
     }
 
 
@@ -137,7 +149,6 @@ public class RecipeServiceDb : IRecipeService
         var review = new Review
         {
             // Id created by Database
-
             Author = author,
             Comment = comment,
             Rating = rating,
@@ -172,7 +183,6 @@ public class RecipeServiceDb : IRecipeService
     }
 
 
-
     public bool DeleteReview(int id)
     {
         // find review
@@ -186,7 +196,43 @@ public class RecipeServiceDb : IRecipeService
         return true;
     }
 
+    // Retrieve all reviews and the recipe associated with the review
+        public IList<Recipe> GetAllRecipes()
+        {
+            return db.Recipes
+                     .Include(r => r.Reviews)
+                     .ToList();
+        }
 
+    // perform a search of the reviews based on a query and an active range 'ALL'
+        public IList<Recipe> SearchRecipes(RecipeRange range, string query, string orderBy="id", string direction="asc") 
+        {
+                        
+          query = query == null ? "" : query.ToLower();
+
+          var search = db.Recipes
+                          .Include(r => r.Reviews)
+                          .Where(r => (r.Name.ToLower().Contains(query) ||
+                            r.MealCategory.ToLower().Contains(query) ||
+                            r.CusineStyle.ToLower().Contains(query) 
+                            ) 
+                );
+                            
+          return Ordered(search, orderBy, direction).ToList();        
+        }
+
+        private IQueryable<Recipe> Ordered(IQueryable<Recipe> query, string orderby, string direction)
+        {
+            query = (orderby,direction) switch {
+                ("id", "asc") => query.OrderBy(re => re.Id),
+                ("id", "desc") => query.OrderByDescending(re => re.Id),
+                ("name", "asc") => query.OrderBy(re => re.Name),
+                ("name", "desc") => query.OrderByDescending(re => re.Name),
+                  
+                _ => query
+            };
+            return query;
+        }
 
 }
 

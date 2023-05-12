@@ -1,20 +1,18 @@
 @model Review;
     
-<!-- TBC add a breadcrumb partial -->
+<!-- A breadcrumb partial -->
 <partial name="_BreadCrumbs" model=@(new [] {
     ("/","Home"),
     ("/recipe","Recipes"),
-    ("/details","Details"),
-    ($"/recipe/details/{Model.Id}", $"{Model.Id}"),
+    ($"/recipe/details/{Model.Id}", $"Recipe {Model.Id}"),
     ("","Details-Review")
     
 }) />
 
-
 <div class="card rounded shadow p-4">
     <h3> Review <span class="ms-3 text-danger fs-5"></span></h3>
 
-    <!-- display the student using a <dl> as per Details.cshtml -->   
+    <!-- display the recipe using a <dl> as per Details.cshtml -->   
     <dl class="row mt-3">       
         <dt class="col-5">Recipe</dt>
         <dd class="col-7">@Model.Recipe.Name</dd>
@@ -29,12 +27,10 @@
         <dd class="col-7">@Model.Rating</dd>           
     </dl>   
 
-   
-          
-
-            <button class="btn btn-secondary" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.RecipeId" aria-label="cancel">View Review</button>
+                @* anchor tag back to the details page *@
+            <div>
+                <a class="btn btn-primary" asp-controller="Recipe" asp-action="Details" asp-route-id="@Model.RecipeId" aria-label="cancel">Back</a>
+            </div>
             
-    
-    
     
 </div>

@@ -1,8 +1,9 @@
 using System;
 using System.ComponentModel.DataAnnotations;
 
-namespace RMS.Data.Entities
-{
+namespace RMS.Data.Entities;
+
+
     public class Review
     {
         public int Id { get; set; }
@@ -27,4 +28,3 @@ namespace RMS.Data.Entities
     
     }
 
-}

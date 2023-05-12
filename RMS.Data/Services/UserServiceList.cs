@@ -1,34 +1,25 @@
-using Microsoft.EntityFrameworkCore;
+
 using RMS.Data.Entities;
-using RMS.Data.Repository;
 using RMS.Data.Security;
 
 namespace RMS.Data.Services;
 
-// EntityFramework Implementation of IUserService
-public class UserServiceDb : IUserService
+public class UserServiceList : IUserService
 {
-    private readonly DataContext db;
+    private readonly List<User> Users;
 
-    public UserServiceDb()
+    public UserServiceList()
     {
-        db = new DataContext();
+        Users = new List<User>();
     }
 
     public void Initialise()
     {
-        db.Initialise(); // recreate database
+        Users.Clear(); // delete all Users from list
     }
 
-    // ==================== User Authentication/Registration Management ==================
-    public User Authenticate(string email, string password)
-    {
-        // retrieve the user based on the EmailAddress (assumes EmailAddress is unique)
-        var user = GetUserByEmail(email);
+    // ------------------ Student Related Operations ------------------------
 
-        // Verify the user exists and Hashed User password matches the password provided
-        return (user != null && Hasher.ValidateHash(user.Password, password)) ? user : null;
-    }
     public User Register(string name, string email, string password, Role role)
     {
         // check that the user does not already exist (unique user name)
@@ -41,17 +32,18 @@ public class UserServiceDb : IUserService
         // Custom Hasher used to encrypt the password before storing in database
         var user = new User 
         {
+            Id = Users.Count + 1,
             Name = name,
             Email = email,
             Password = Hasher.CalculateHash(password),
-            Role = role   
+            Role = role
         };
 
-        db.Users.Add(user);
-        db.SaveChanges();
+        Users.Add(user);       
         return user;
+        
     }
-
+    
     public User UpdateProfile(User updated)
     {
         // verify the user  exists 
@@ -67,7 +59,7 @@ public class UserServiceDb : IUserService
         {
             return null;
         }
-         // update user profile
+        // update user profile
         user.Email = updated.Email;
         user.Name = updated.Name;
         
@@ -77,19 +69,28 @@ public class UserServiceDb : IUserService
             user.Password = Hasher.CalculateHash(updated.Password);
         }               
         
-        db.SaveChanges();
         return user;
+    }
+
+    public User Authenticate(string email, string password)
+    {
+        // retrieve the user based on the EmailAddress (assumes EmailAddress is unique)
+        var user = GetUserByEmail(email);
+
+        // Verify the user exists and Hashed User password matches the password provided
+        return (user != null && Hasher.ValidateHash(user.Password, password)) ? user : null;
     }
 
     public User GetUserByEmail(string email)
     {
-        return db.Users.FirstOrDefault(u => u.Email == email);
+        return Users.FirstOrDefault(u => u.Email == email);
     }
 
     public User GetUser(int id)
     {
-        return db.Users.FirstOrDefault(u => u.Id == id);
+        return Users.FirstOrDefault(u => u.Id == id);
     }
 
 }
 
+   

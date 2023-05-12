@@ -1,4 +1,3 @@
-
 using Xunit;
 using RMS.Data.Entities;
 using RMS.Data.Services;
@@ -20,8 +19,7 @@ public class RecipeServiceTests
         svc.Initialise();
     }
 
-    // ========================== TBC Recipe Tests  =========================
-     // =========================== GET ALL RECIPE TESTS =================================
+    // =========================== GET ALL RECIPE TESTS =================================
 
     [Fact] 
     public void GetAllRecipes_WhenNoneExist_ShouldReturn0()
@@ -43,14 +41,16 @@ public class RecipeServiceTests
             CusineStyle = "African", Carbs = "200g", Fat = "30g", Protein = "10g",
             Description = "Spicy Orange rice, made with african spices and roasted chicken",
             Ingredients= "Rice, Fresh Tomatoes, seasoning, sacket tomatoes, basil, curry, vegetable oil and chicken",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
         );
         var r2 = svc.AddRecipe(
             new Recipe { Name = "white Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",  }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead", 
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
         );       
 
         // act
@@ -82,7 +82,8 @@ public class RecipeServiceTests
             CusineStyle = "African", Carbs = "200g", Fat = "30g", Protein = "10g",
             Description = "Spicy Orange rice, made with african spices and roasted chicken",
             Ingredients= "Rice, Fresh Tomatoes, seasoning, sacket tomatoes, basil, curry, vegetable oil and chicken",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",  }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",  
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
 
         // act
@@ -94,7 +95,7 @@ public class RecipeServiceTests
     }
 
     [Fact] 
-    public void GetRecipe_WithReviews_RetrievesRecipeAndReviews()
+    public void GetRecipe_WithReviews_RetrievesRecipeAndReviews()
     {
         // arrange
         var r = svc.AddRecipe( 
@@ -102,7 +103,8 @@ public class RecipeServiceTests
             CusineStyle = "African", Carbs = "200g", Fat = "30g", Protein = "10g",
             Description = "Spicy Orange rice, made with african spices and roasted chicken",
             Ingredients= "Rice, Fresh Tomatoes, seasoning, sacket tomatoes, basil, curry, vegetable oil and chicken",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
         );
         svc.CreateReview(r.Id, "Mark Smith", "Tasted Good", 8);  
 
@@ -124,7 +126,8 @@ public class RecipeServiceTests
             CusineStyle = "African", Carbs = "200g", Fat = "30g", Protein = "10g",
             Description = "Spicy Orange rice, made with african spices and roasted chicken",
             Ingredients= "Rice, Fresh Tomatoes, seasoning, sacket tomatoes, basil, curry, vegetable oil and chicken",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
 
         // act
@@ -146,10 +149,12 @@ public class RecipeServiceTests
             CusineStyle = "African", Carbs = "200g", Fat = "30g", Protein = "10g",
             Description = "Spicy Orange rice, made with african spices and roasted chicken",
             Ingredients= "Rice, Fresh Tomatoes, seasoning, sacket tomatoes, basil, curry, vegetable oil and chicken",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
+
         );
         
-        // act - try to retrieve the newly added recipe
+        // act - retrieve the newly added recipe
         var r = svc.GetRecipe(added.Id);
 
         // assert - that recipe is not null
@@ -178,19 +183,23 @@ public class RecipeServiceTests
         // arrange
         var r1 = svc.AddRecipe(
             new Recipe { Name = "Jollof Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
-            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
+            CusineStyle = "African", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof party rice. If you'd rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
+            
         );
 
         // act 
         var r2 = svc.AddRecipe(
             new Recipe { Name = "Jollof Rice", PrepTime = 20, CookTime = 20, Servings = 3, DietType = "Vegan", MealCategory = "Main", 
-            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
-            Description = "white rice, made with water and salt",
-            Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",  }
+            CusineStyle = "American", Carbs = "30g", Fat = "50g", Protein = "10g",
+            Description = "flour, made with water and strawberries",
+            Ingredients= "flour, sugar, butter and egg",
+            Direction = "Mix all dry ingredient and add the wet, back for 2 mins on each side, meal is ready",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
+
         );
         
         // assert
@@ -209,7 +218,8 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead", 
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
                               
         // act - ** create a copy and update all student properties (except Id) **
@@ -220,11 +230,11 @@ public class RecipeServiceTests
                 CusineStyle = "African", Carbs = "200g", Fat = "40g", Protein = "10g",
                 Description = "white rice, made with water and salt",
                 Ingredients= "Rice, water and salt",
-                Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead"
-            }
+                Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+                PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         ); 
 
-        // reload updated recipe from database into new student object (us)
+        // reload updated recipe from database into new student object (ud)
         var urecipe = svc.GetRecipe(r.Id);
 
         // assert
@@ -256,14 +266,16 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead"  }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}  
         );
         var r2 = svc.AddRecipe(
             new Recipe { Name = "white Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead", }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead", 
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
 
         // act - update r2 Name with duplicate value from r1
@@ -289,13 +301,14 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
         );
        
         // act
         var deleted = svc.DeleteRecipe(r.Id);
 
-        // try to retrieve deleted recipe
+        // retrieve deleted recipe
         var r1 = svc.GetRecipe(r.Id);
 
         // assert
@@ -326,7 +339,8 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" ,
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
         // act
         var re = svc.CreateReview(r.Id, "Mark Smith", "Tasted Good", 8);
@@ -345,7 +359,8 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
         );
         var re = svc.CreateReview(r.Id, "Mark Smith", "Tasted Good", 8);
 
@@ -368,7 +383,9 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof party rice. If you'd rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
+
         );
         var re = svc.CreateReview(r.Id, "Mark Smith", "Tasted Good", 8);
 
@@ -382,9 +399,7 @@ public class RecipeServiceTests
 
     [Fact] 
     public void DeleteReview_WhenNonExistant_ShouldReturnFalse()
-    {
-        // arrange
-        
+    { 
         // act
         var deleted = svc.DeleteReview(1);     // delete non-existent review   
         
@@ -401,7 +416,8 @@ public class RecipeServiceTests
             CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
             Description = "white rice, made with water and salt",
             Ingredients= "Rice, water and salt",
-            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead" }
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead", 
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg"}
         );
         var re = svc.CreateReview(r.Id, "Mark Smith", "Tasted Good", 8);
 
@@ -414,77 +430,71 @@ public class RecipeServiceTests
         Assert.Equal(0, nrecipe.Reviews.Count);
     }
     
-}
-
-// ==================== UserService Tests =============================
-[Collection("Sequential")]
-public class UserServiceTests
-{
-    private readonly IUserService svc;
-
-    public UserServiceTests()
+    [Fact]
+    public void Recipe_Search_WhenShouldFindTwoResults_DoesFindTwo()
     {
-        // general arrangement
-        svc = new UserServiceDb();
-        
-        // ensure data source is empty before each test
-        svc.Initialise();
+
+         // arrange
+        var r1 = svc.AddRecipe(
+            new Recipe { Name = "white Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
+            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
+            Description = "white rice, made with water and salt",
+            Ingredients= "Rice, water and salt",
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
+        );
+
+        var r2 = svc.AddRecipe(
+            new Recipe { Name = "Jollof Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
+            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
+            Description = "white rice, made with water and salt",
+            Ingredients= "Rice, water and salt",
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
+        );
+        var check1 = svc.AddRecipe(new Recipe { Name = "white Rice" });
+        var check2 = svc.AddRecipe(new Recipe { Name = "Jollof Rice" });
+
+        // act
+        var results = svc.SearchRecipes(RecipeRange.ALL,"Rice", null, null); 
+
+        // assert
+        Assert.Equal(2, results.Count);       
+
     }
 
-    // ========================== User Tests =========================
 
-    [Fact] // --- Register Valid User test
-    public void User_Register_WhenValid_ShouldReturnUser()
+    [Fact]
+    public void Recipe_Search_ForNameShouldFindOneResults_DoesFindOne()
     {
-        // arrange 
-        var reg = svc.Register("XXX", "xxx@email.com", "admin", Role.admin);
-        
+
+         // arrange
+        var r1 = svc.AddRecipe(
+            new Recipe { Name = "white Rice", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
+            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
+            Description = "white rice, made with water and salt",
+            Ingredients= "Rice, water and salt",
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
+        );
+
+         var r2 = svc.AddRecipe(
+            new Recipe { Name = "Pancake", PrepTime = 10, CookTime = 10, Servings = 2, DietType = "whole", MealCategory = "Main", 
+            CusineStyle = "Chinese", Carbs = "100g", Fat = "20g", Protein = "20g",
+            Description = "white rice, made with water and salt",
+            Ingredients= "Rice, water and salt",
+            Direction = "Maybe the most popular dish in West Africa, this recipe for rice infused in a rich tomato-pepper broth is unifying and dividing all at once, with everyone claiming their take on it as the definitive version. Ours takes the best flavours with the addition of charring the peppers in the recipe before puréeing, to help add a smokiness to this jollof ‘party’ rice. If you’d rather keep it more traditional, skip the roasting and just use raw peppers instead",
+            PhotoUrl = "https://thumbs.dreamstime.com/b/nigerian-food-party-jollof-rice-fried-chicken-wings-close-nigerian-food-party-jollof-rice-fried-chicken-wings-close-up-112895209.jpg" }
+        );
+        var check1 = svc.AddRecipe(new Recipe { Name = "white Rice" });
+        var check2 = svc.AddRecipe(new Recipe { Name = "Pancake" });
+
         // act
-        var user = svc.GetUserByEmail(reg.Email);
-        
-        // assert
-        Assert.NotNull(reg);
-        Assert.NotNull(user);
-    } 
-
-    [Fact] // --- Register Duplicate Test
-    public void User_Register_WhenDuplicateEmail_ShouldReturnNull()
-    {
-        // arrange 
-        var s1 = svc.Register("XXX", "xxx@email.com", "admin", Role.admin);
-        
-        // act
-        var s2 = svc.Register("XXX", "xxx@email.com", "admin", Role.admin);
+        var results = svc.SearchRecipes(RecipeRange.ALL, "Pancake"); 
 
         // assert
-        Assert.NotNull(s1);
-        Assert.Null(s2);
-    } 
+        Assert.Equal(1, results.Count);       
 
-    [Fact] // --- Authenticate Invalid Test
-    public void User_Authenticate_WhenInValidCredentials_ShouldReturnNull()
-    {
-        // arrange 
-        var s1 = svc.Register("XXX", "xxx@email.com", "admin", Role.admin);
-    
-        // act
-        var user = svc.Authenticate("xxx@email.com", "guest");
-        // assert
-        Assert.Null(user);
-
-    } 
-
-    [Fact] // --- Authenticate Valid Test
-    public void User_Authenticate_WhenValidCredentials_ShouldReturnUser()
-    {
-        // arrange 
-        var s1 = svc.Register("XXX", "xxx@email.com", "admin", Role.admin);
-    
-        // act
-        var user = svc.Authenticate("xxx@email.com", "admin");
-        
-        // assert
-        Assert.NotNull(user);
-    } 
- 
+    }
 }
+

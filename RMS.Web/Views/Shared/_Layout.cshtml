@@ -20,22 +20,22 @@
                     <span class="navbar-toggler-icon"></span>
                 </button>
                 <div class="navbar-collapse collapse d-sm-inline-flex flex-sm-row-reverse">
-
-                    <!-- login partial can go here -->
-
-
-                    <ul class="navbar-nav flex-grow-1">
+    
+                    <!-- login partial -->
+                    <partial name="_LoginPartial"/>
+                 
+                        <ul class="navbar-nav me-auto my-1 my-lg-0 fw-normal"> 
                         <li class="nav-item">
-                            <a class="nav-link text-dark hover-effect" asp-area="" asp-controller="Home" asp-action="Index">Home</a>
+                            <a class="nav-link text-dark hover-effect" asp-controller="Home" asp-action="Index">Home</a>
                         </li>
 
-                        <!-- other nav bar items here -->
-
-                        <ul class="navbar-nav flex-grow-1">
-                            <li class="nav-item">
-                                <a class="nav-link text-dark hover-effect" asp-area="" asp-controller="Recipe"
+                        <!-- other nav bar items here -->                       
+                       
+                            <li asp-condition=@(User.Identity.IsAuthenticated) class="nav-item">
+                                <a class="nav-link text-dark hover-effect"  asp-controller="Recipe"
                                     asp-action="Index">Recipes</a>
                             </li>
+                        
 
                             <li class="nav-item dropdown">
                             <a class="nav-link text-dark dropdown-toggle hover-effect" data-bs-toggle="dropdown" href="#" role="button" aria-expanded="false">More</a>
@@ -44,26 +44,9 @@
                                 <li> <a class="dropdown-item hover-effect" asp-controller="Home" asp-action="Contact">Contact us</a></li>
                             </ul>
                         </li>  
-
-
-                </div>
-                <div class="d-flex align-items-center justify-content-between">
-
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark hover-effect" asp-area="" asp-controller="User" asp-action="Login">Login</a>
-                        </li>
-                    </ul>
-
-                    <ul class="navbar-nav flex-grow-1">
-                        <li class="nav-item">
-                            <a class="nav-link text-dark hover-effect" asp-area="" asp-controller="User"
-                                asp-action="Register">Register</a>
-                        </li>
-                    </ul>
+                        </ul>
 
                 </div>
-
 
             </div>
         </nav>

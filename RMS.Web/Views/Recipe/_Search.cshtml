@@ -1,0 +1,9 @@
+@model RecipeSearchViewModel
+
+<!-- search form -->
+<form asp-controller="Recipe" asp-action="Index" class="d-flex flex-row align-items-center">  
+    <!-- input field for the Query -->   
+    <input  class="bi bi-search form-control mr-sm-2 me-md-2" asp-for="Query" placeholder="Search..."> 
+    <button class="btn btn-primary my-2 my-sm-0 me-md-2" type="submit" >Search</button>
+    <a class="btn btn-primary" asp-action="Index"  aria-label="cancel" >Reset</a>        
+</form>

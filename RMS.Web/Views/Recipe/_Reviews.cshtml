@@ -1,71 +1,64 @@
 @model Recipe
 
-<h4>Reviews</h4>
-<table class="table table-sm">
-    <thead>
-        <tr>   
-            <th>Created</th>         
-            <th>Author</th>
-            <th>Comment</th>  
-            <th>Rating</th>       
-            <th>Actions</th>  
-        </tr>
-    </thead>
-    <tbody>
-        @if (Model.Reviews.Count == 0)
-        {
-            <tr>              
-                <td colspan="4">No Reviews...</td>
-            </tr>
-        }
-        else
-        {
-            @foreach(var re in Model.Reviews) {
-                <tr>             
-                    <td>@re.CreatedOn</td>
-                    <td>@re.Author</td>
-                    <td>@re.Comment</td> 
-                    <td>@re.Rating</td>     
-                    
-                    <td>
-                        <!-- TBC Q4 - display disabled button when ticket is inactive -->
-                    
-                        
-                          <a asp-action="DeleteReview" asp-route-id="@re.Id" class="btn btn-sm btn-outline-danger">
-                              <i class="bi bi-trash-fill me-1" title="delete review"></i>
-                              
-                          </a>
-                       
-                          <!-- TBC Q4 - display disabled button when ticket is inactive -->           
-                          <a asp-action="EditReview" asp-route-id="@re.Id" class="btn btn-sm btn-outline-dark">
-                              <i class="bi bi-pen-fill me-1" title="edit review"></i>
-                              
-                          </a>
+    <h4 class="mt-3">Reviews</h4>
+        <table class="table table-sm">
+                <thead>
+                    <tr>   
+                        <th>Created</th>         
+                        <th>Author</th>
+                        <th>Comment</th>  
+                        <th>Rating</th>       
+                        <th>Actions</th>  
+                    </tr>
+                </thead>
 
-                          <a asp-action="ReviewDetails" asp-route-id="@re.Id" class="btn btn-sm btn-outline-dark">
-                              <i class="bi bi-pen-fill me-1" title="edit review"></i>
-                              
-                          </a>
+                <tbody>
+                    @if (Model.Reviews.Count == 0)
+                    {
+                        <tr>              
+                            <td colspan="4">No Reviews...</td>
+                        </tr>
+                    }
+                    else
+                    {
+                        @foreach(var re in Model.Reviews) {
+                            <tr>             
+                                <td>@re.CreatedOn</td>
+                                <td>@re.Author</td>
+                                <td>@re.Comment</td> 
+                                <td>@re.Rating</td>     
+                                
+                                <td>
+                                    @* <!-- TBC Q4 - display disabled button when ticket is inactive --> *@                                                                
+                                    <a asp-condition=@User.HasOneOfRoles("admin,support") asp-action="DeleteReview" asp-route-id="@re.Id" class="btn btn-sm btn-outline-danger">
+                                        <i class="bi bi-trash-fill me-1" title="delete review"></i>
+                                    </a>
+                                
+                                    @* <!-- TBC Q4 - display disabled button when ticket is inactive -->            *@
+                                    <a asp-condition=@User.HasOneOfRoles("admin,support") asp-action="EditReview" asp-route-id="@re.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-pencil-square" title="edit review"></i>
+                                    </a>
 
-                        
-                        
-                    </td>             
-                </tr>
+                                    <a  asp-action="ReviewDetails" asp-route-id="@re.Id" class="btn btn-sm btn-outline-primary">
+                                        <i class="bi bi-view-list" title="review details"></i>
+                                    </a>
+                                    
+                                </td>             
+                            </tr>
+                            
+                        }
+                    }
+                </tbody>
+        </table> 
+                <a asp-action="CreateReview" asp-route-id="@Model.Id" aria-label="create">
+                    <button class="bi bi-bag-plus-fill btn btn-primary">
+                     <span class="ms-1 d-none d-md-inline">Create Recipe</span></button>
+                </a> 
                 
-            }
-        }
-    </tbody>
-</table> 
-            <a asp-action="CreateReview" asp-route-id="@Model.Id">
+            
+
+            
+            
+            
                 
-                <button class="bi bi-bag-plus-fill btn btn-primary ">Create Review</button>
-            </a> 
             
-         
-
-           
-            @* <a class="btn btn-secondary" asp-action="Details"  aria-label="cancel">Cancel</a> *@
-
-           
-            
-        

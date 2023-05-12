@@ -33,4 +33,11 @@
        
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>    
+
+    <script>      
+      // set a time out to remove any node with an alert class after 2 seconds
+      setTimeout(() => {          
+          new bootstrap.Alert(document.querySelector('.alert')).close()
+      }, 3000);
+  </script>
 }

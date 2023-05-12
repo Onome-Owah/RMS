@@ -66,3 +66,7 @@ body {
   position: absolute;
   bottom: 0;
 }
+
+.text-center{
+  color : "white"
+}

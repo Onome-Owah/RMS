@@ -2,6 +2,9 @@ using System.ComponentModel.DataAnnotations;
 
 namespace RMS.Data.Entities;
 
+// used in the recipe search feature
+public enum RecipeRange { ALL }
+
 public class Recipe
 {
     public int Id { get; set; }
@@ -48,10 +51,25 @@ public class Recipe
     [Required]
     public string PhotoUrl { get; set; }
 
+    //calculate the average
+    public double AvgRating
+    {
+        get
+        {
+            if(Reviews != null && Reviews.Count > 0 )
+            {
+                var ave = Reviews.Average(r => r.Rating);
+                return Math.Round(ave,1);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+    }
+
     // Relationship 1-N tickets
     public IList<Review> Reviews {get; set; } = new List<Review>();
-
-
  
 }
 

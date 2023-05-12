@@ -1,0 +1,19 @@
+@model Recipe
+
+@* Display the avearage rating to in the view *@
+<div class="card rounded shadow p-3" style="width: 18rem;">
+  <div class="card-header">
+    <b>Average Rating</b>
+  </div >
+        <li>
+        @if(Model.AvgRating == 0)
+        {
+            <span>No ratings yet. Be the first!</span>
+        }
+        else
+        {
+            <span> @Model.AvgRating / 5 (@Model.Reviews.Count() Reviews)</span>
+        }
+        </li>
+</div>
+

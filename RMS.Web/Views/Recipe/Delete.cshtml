@@ -1,22 +1,19 @@
 @model Recipe
 
 
-<!-- TBC add a breadcrumb partial -->
+<!-- a breadcrumb partial -->
 <partial name="_BreadCrumbs" model=@(new [] {
     ("/","Home"),
     ("/recipe","Recipes"),
-    ("/details","Details"),
-    ($"/recipe/details/{Model.Id}", $"{Model.Id}"),
+    ($"/recipe/details/{Model.Id}", $"Recipe {Model.Id}"),
     ("","Delete-Recipe")
-    
 }) />
 
 
 <div class="card rounded shadow p-4">
   <h3 class="mb-4">Delete Recipe <span class="ms-3 text-danger fs-5">Are you sure?</span></h3> 
-  
 
-  <!-- display the student using a <dl> as per Details.cshtml -->     
+  <!-- display the recipe using a <dl> as per Details.cshtml -->     
         <div>
                 <h2 class="mb-4 text-primary">Recipe Details</h2>
                 <dl class="row">  
@@ -61,15 +58,13 @@
                 </dl>
             </div>
 
-  <div class="mt-4">
-    <form asp-action="ConfirmDelete">
-        <!-- student Id should be a hidden input field named 'Id' in the form -->      
-        <input type="hidden" asp-for="Id" class="form-control"/>
-
-        <button type="submit" class="btn btn-danger" aria-label="delete">Delete</button>       
-        <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id" >Cancel</a>
-    </form>
-  </div>
-</div>
-
+    <div class="mt-4">
+      <form asp-action="ConfirmDelete">
+          <!-- recipe Id should be a hidden input field named 'Id' in the form -->      
+          <input type="hidden" asp-for="Id" class="form-control"/>
+          <button type="submit" class="btn btn-danger" aria-label="delete">Delete</button>       
+          <a class="btn btn-secondary" asp-action="Details" asp-route-id="@Model.Id" >Cancel</a>
+      </form>
+    </div>
+  
 </div>

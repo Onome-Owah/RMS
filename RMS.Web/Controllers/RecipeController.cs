@@ -6,6 +6,7 @@ using RMS.Web.Models;
 
 namespace RMS.Web.Controllers;
 
+[Authorize]
 public class RecipeController : BaseController
 {
     // complete
@@ -17,14 +18,16 @@ public class RecipeController : BaseController
     }
 
     // GET /Recipe
-    public IActionResult Index()
+    [AllowAnonymous] 
+    public IActionResult Index(RecipeSearchViewModel search)
     {
-        // load recipes using service and pass to view
-        var data = svc.GetRecipes();
-        
-        return View(data);
+
+    var recipes = svc.SearchRecipes(search.Range, search.Query, search.OrderBy, search.Direction);
+        search.Recipes = recipes;
+        return View(search);
     }
 
+    [AllowAnonymous]
     // GET /recipes/details/{id}
     public IActionResult Details(int id)
     {
@@ -33,11 +36,12 @@ public class RecipeController : BaseController
         if (recipe is null) {
             // Alert and Redirect
           Alert("Recipe Was Not Found", AlertType.info);
-return RedirectToAction(nameof(Index));
+          return RedirectToAction(nameof(Index));
             
         }
         return View(recipe);
     }
+
 
     // GET: /recipe/create
     public IActionResult Create()
@@ -47,8 +51,11 @@ return RedirectToAction(nameof(Index));
     }
 
     // POST /recipe/create
+
+    [Authorize(Roles="admin,support")]
+    [ValidateAntiForgeryToken]
     [HttpPost]
-    public IActionResult Create(Recipe r)
+    public IActionResult Create([Bind("Email, password")]Recipe r)
     {   
         //  validate that Name is unique
         if (svc.GetRecipeByName(r.Name) !=null){
@@ -74,6 +81,7 @@ return RedirectToAction(nameof(Index));
     }
 
     // GET /recipe/edit/{id}
+    [Authorize(Roles="admin,support")]
     public IActionResult Edit(int id)
     {
         // load the recipe using the service
@@ -86,14 +94,17 @@ return RedirectToAction(nameof(Index));
             Alert($"Recipe Not Found {id}", AlertType.warning);
             return RedirectToAction(nameof(Index));
         }  
+       
 
         // pass recipe to view for editing
         return View(recipe);
     }
 
     // POST /recipe/edit/{id}
+    [ValidateAntiForgeryToken]
+    [Authorize(Roles="admin,support")]
     [HttpPost]
-    public IActionResult Edit(int id, Recipe r)
+    public IActionResult Edit([Bind("Email, password")]int id, Recipe r)
     {
         // validation error if Name exists and is not owned by recipe being edited 
         var existing = svc.GetRecipeByName(r.Name);
@@ -111,6 +122,10 @@ return RedirectToAction(nameof(Index));
         {
             Alert("Issues updating the recipe", AlertType.warning);
         }
+         else 
+        {
+            Alert("Recipe has been updated", AlertType.success);
+        }
 
             // redirect back to view the recipe details
             return RedirectToAction(nameof(Details), new { Id = r.Id });
@@ -121,6 +136,7 @@ return RedirectToAction(nameof(Index));
     }
 
     // GET / recipe/delete/{id}
+     [Authorize(Roles="admin")]      
     public IActionResult Delete(int id)
     {
         // load the recipe using the service
@@ -139,7 +155,9 @@ return RedirectToAction(nameof(Index));
 
     // POST /recipe/delete/{id}
     [HttpPost]
-    public IActionResult ConfirmDelete(int id)
+    [Authorize(Roles="admin")]
+    [ValidateAntiForgeryToken]   
+    public IActionResult ConfirmDelete([Bind("Email, password")]int id)
     {
         // delete recipe via service
         var deleted = svc.DeleteRecipe(id);
@@ -158,7 +176,8 @@ return RedirectToAction(nameof(Index));
 
      // ============== Recipe review management ==============
 
-    // GET /recipe/createticket/{id}
+    // GET /recipe/createreview/{id}
+    [AllowAnonymous]
     public IActionResult CreateReview(int id)
     {
         var recipe = svc.GetRecipe(id);
@@ -177,14 +196,21 @@ return RedirectToAction(nameof(Index));
 
     // POST /recipe/createreview
     [HttpPost]
+    [ValidateAntiForgeryToken]  
     public IActionResult CreateReview(Review re)
     {
         if (ModelState.IsValid)
         {                
             var review = svc.CreateReview(re.RecipeId, re.Author, re.Comment, re.Rating); 
-            // if (review is null) {
-            // // Alert and Redirect
-            // Alert("Review Was Not Found", AlertType.info);
+
+            if (review is null)
+            {
+                 Alert($"Review could not be created", AlertType.info); 
+            }
+            else
+            {
+                 Alert($"Review created successfully for Recipe {re.RecipeId}", AlertType.info); 
+            }
 
             // redirect to display Recipe - 
             return RedirectToAction(
@@ -195,7 +221,8 @@ return RedirectToAction(nameof(Index));
         return View(re);
     }
 
-     public IActionResult ReviewDetails(int id)
+    //GET/ReviewDetail/id
+    public IActionResult ReviewDetails(int id)
     {
         var review = svc.GetReview(id);
       
@@ -209,22 +236,23 @@ return RedirectToAction(nameof(Index));
     }
 
 
-        // GET /recipe/editReview/{id}
-        public IActionResult EditReview(int id)
+    // GET /recipe/editReview/{id}
+    public IActionResult EditReview(int id)
+    {
+        var review = svc.GetReview(id);
+        if (review == null)
         {
-            var review = svc.GetReview(id);
-            if (review == null)
-            {
-                // use Alert and Redirect
-                Alert("Review not found", AlertType.warning);
-                return RedirectToAction(nameof(Index));
-            }        
-            return View( review );
-        }
+            // use Alert and Redirect
+            Alert("Review not found", AlertType.warning);
+            return RedirectToAction(nameof(Index));
+        }        
+        return View( review );
+    }
 
     // POST /recipe/editReview
     [HttpPost]
-    public IActionResult EditReview(int Id, Review re)
+    [ValidateAntiForgeryToken]
+    public IActionResult EditReview(int Id, [Bind("Author, Comment")] Review re)
     {
         if (ModelState.IsValid)
         {                
@@ -233,6 +261,10 @@ return RedirectToAction(nameof(Index));
             if (review is null)
             {
                 Alert ("Issues updating review", AlertType.warning);
+            }
+            else 
+            {
+                Alert("Review has been updated", AlertType.warning);
             }
             // redirect to display student - note how Id is passed
             return RedirectToAction(
@@ -243,7 +275,7 @@ return RedirectToAction(nameof(Index));
         return View(re);
     }
 
-    // GET /student/ticketdelete/{id}
+    // GET /review/deletereview/{id}
     public IActionResult DeleteReview(int id)
     {
         // load the review using the service
@@ -262,7 +294,8 @@ return RedirectToAction(nameof(Index));
 
     // POST /recipe/deletereviewconfirm/{id}
     [HttpPost]
-    public IActionResult DeleteReviewConfirm(int id, int recipeId)
+    [ValidateAntiForgeryToken]
+    public IActionResult DeleteReviewConfirm(int id,  int recipeId)
     {
         var deleted = svc.DeleteReview(id);
 
